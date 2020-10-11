@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+{% block contents %}
+<div class="topnav">
+  <a class="active" href="{% url 'index' %}">For PT</a>
+  <a href="{% url 'file_list' %}">파일관리</a>
+  <a class="info" href="{% url 'logout' %}">로그아웃</a>
+  <a class="info" id="user_info">{{user_info}}</a>
+  <a class="info" id="user_info">{{user_id}}</a>
+</div>
+<h1>참여가능 수업 리스트</h1>
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">수업리스트</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div id="modal-content">
+    <span class="close">&times;</span>
+    <table>
+        <thead>
+            <tr>
+                <th>인원/정원</th>
+                <th>교수</th>
+                <th>강의</th>
+                <th>학생</th>
+                <th>참여</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>{{ room.participant }}/{{ room.limit }}</td>
+                    <td>{{ room.professor }}</td>
+                    <td>{{ room.room_name }}</td>
+                    <td>{{ room.student }}</td>
+                    <td>
+                      <a href="{% url 'room_join' pk=room.id %}" class="btn btn-primary btn-sm">
+                        참여
+                      </a>   
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+{% endblock %}

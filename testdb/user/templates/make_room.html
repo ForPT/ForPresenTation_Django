@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block contents %}
+<div class="topnav">
+    <a class="active" href="{% url 'index' %}">For PT</a>
+    <a href="{% url 'file_list' %}">파일관리</a>
+    <a class="info" href="{% url 'logout' %}">로그아웃</a>
+    <a class="info" id="user_info">{{user_info}}</a>
+    <a class="info" id="user_info">{{user_id}}</a>
+</div>
+    <h1>방만들기</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">생성</button>
+    </form>
+{% endblock %}

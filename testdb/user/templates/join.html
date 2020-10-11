@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block contents %}
+        <body>
+            <div class="topnav">
+                <a class="active" href="{% url 'index' %}">For PT</a>
+                <a href="{% url 'file_list' %}">파일관리</a>
+                <a class="info" href="{% url 'logout' %}">로그아웃</a>
+                <a class="info" id="user_info">{{user_info}}</a>
+                <a class="info" id="user_info">{{user_id}}</a>
+            </div>
+          <h1>For PT</h1>
+          <div id="grid">
+              <div  id="admin_room">
+                <span id="heading">관리중</span><a href="{% url 'make_room' %}" class="button">방만들기</a><br>
+                  {% for room in rooms %}
+                  <p> <strong>방이름</strong> : {{ room.room_name }}<a href="{% url 'invite' %}" class="button">초대하기</a><br>
+                  <strong>교수</strong>   : {{ room.professor }}<br>
+                  <strong>참여자</strong> : {{ room.student }}</p>
+                  {% endfor %}
+                </div>
+                <div id="article">
+                    <span id="heading">참여중</span><button id="myBtn" class="button">들어가기</button>
+                    {% for room in rooms %}
+                    <p> <strong>방이름</strong> : {{ room.room_name }}<a href="{% url 'index' %}" class="button">나가기</a><br>
+                    <strong>교수</strong>   : {{ room.professor }}<br>
+                    <strong>참여자</strong> : {{ room.student }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </body>
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div id="modal-content">
+      <span class="close">&times;</span>
+      <table>
+          <thead>
+              <tr>
+                  <th>인원/정원</th>
+                  <th>교수</th>
+                  <th>강의</th>
+                  <th>학생</th>
+                  <th>참여</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for room in rooms %}
+                  <tr>
+                      <td>참가자/{{ room.limit }}</td>
+                      <td>{{ room.professor }}</td>
+                      <td>{{ room.room_name }}</td>
+                      <td>{{ room.student }}</td>
+                      <td>
+                          <a href="{% url 'join' %}" class="btn btn-primary btn-sm">
+                              참여
+                          </a>
+                      </td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+  </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+{% endblock %}

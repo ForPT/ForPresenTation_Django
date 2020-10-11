@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block contents %}
+            <div class="topnav">
+                <a class="active" href="{% url 'index' %}">For PT</a>
+                <a class="info" href="{% url 'register'%}">회원가입</a>
+                <a class="info" href="{% url 'login' %}">로그인</a>
+            </div>
+          <h1>For PT</h1>
+          <div id="grid">
+              <div  id="admin_room">
+                  <span id="heading">관리중</span><a href="{% url 'make_room' %}" class="button">방만들기</a><br>
+                </div>
+                <div id="article">
+                    <span id="heading">참여중</span>
+                    <a href="{% url 'room_list' %}" class="button">들어가기</a>
+                </div>
+            </div>
+{% endblock %}

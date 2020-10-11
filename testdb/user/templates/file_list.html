@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block contents %}
+<div class="topnav">
+    <a href="{% url 'index' %}">For PT</a>
+    <a class="active" href="{% url 'file_list' %}">파일관리</a>
+    <a class="info" href="{% url 'logout' %}">로그아웃</a>
+    <a class="info" id="user_info">{{user_info}}</a>
+    <a class="info" id="user_info">{{user_id}}</a>
+</div>
+<h1>파일관리</h1>
+<br>
+<br>
+<table>
+    <thead>
+        <tr>
+            <th>시간</th>
+            <th>학번</th>
+            <th>이름</th>
+            <th>설명</th>
+            <th>파일경로</th>
+            <th>다운로드</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for getFile in getFiles %}
+            <tr>
+                <td>{{ getFile.time }}</td>
+                <td>{{ getFile.number }}</td>
+                <td>{{ getFile.name }}</td>
+                <td>{{ getFile.comment }}</td>
+                <td>{{ getFile.ppt }}</td>
+
+                <td>
+                    <a href="{{ getFile.ppt.url }}" class="btn btn-primary btn-sm">
+                        Download
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'user:update' getFile.id %}">
+                        Update
+                    </a>
+                </td>
+                <td>
+                    <!-- <a href="{% url 'user:delete' getFile.id %}"> -->
+                    <a href="{% url 'file_delete' pk=getFile.id %}">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

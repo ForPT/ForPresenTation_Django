@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+<!--방선택을 통해 들어온 upload_file-->
+{% block contents %}
+<div class="topnav">
+    <a href="{% url 'index' %}">For PT</a>
+    <a class="active" href="{% url 'file_list' %}">파일관리</a>
+    <a class="info" href="{% url 'logout' %}">로그아웃</a>
+    <a class="info" id="user_info">{{user_info}}</a>
+    <a class="info" id="user_info">{{user_id}}</a>
+</div>
+<h1>{{room_name}}_{{room_professor}}</h1>
+    <h2>Upload file</h2><br>
+    <!-- <h3>{{room_name}}_{{room_professor}}</h3><br> -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.comment }}<br><br>
+        {{ form.ppt |default:"nothing" }}<br><br>
+        <!-- <a href="{% url 'upload_file' %}" >파일올리기</a> -->
+        <button type="submit" class="btn btn-primary">Upload file</button>
+    </form>
+{% endblock %}
