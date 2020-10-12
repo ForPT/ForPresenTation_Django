@@ -253,25 +253,11 @@ def file_delete(request, pk): # pk 는 지울파일
     delete_file.delete() # 파일 객체 지우기
     return redirect('file_list')
 
-def join(request):
-    print('---------------------join-----------------------------')
-    user_id = request.session.get('user')
-    user_info = User.objects.get(pk=user_id)
-    rooms = Room.objects.all()
-    return render(request, 'join.html', {
-        'rooms' : rooms,
-        'user_id' : user_info,
-        'user_info' : user_info.username
-    })
-
 def invite(request, pk): # pk 는 room.id
     print('---------------invite-----------------------------')
     user_id = request.session.get('user')
     user_info = User.objects.get(pk=user_id) # 학번 (ex. 2017000000)
     room = Room.objects.get(pk=pk) # 초대 방
-    print('초대할 방 정보 는 ', room)
-    print('초대할 방 이름 은 ', room.room_name)
-
     user = User.objects.all() # 모든 유저
     if room.student:
         joined_student_list = room.student.split(',')

@@ -37,7 +37,6 @@ urlpatterns = [
     path('user/room_list/' , views.room_list, name='room_list'),
     path('user/make_room/' , views.make_room, name='make_room'),    
     path('user/index/' , views.index, name='index'),    
-    path('user/join/' , views.join, name='join'),   
     path('<int:pk>/update/', views.FileUpdateView.as_view, name='update'),
     path('index/<int:pk>/room_delete/', views.room_delete, name='room_delete'), 
     path('index/<int:pk>/room_exit/', views.room_exit, name='room_exit'), 
